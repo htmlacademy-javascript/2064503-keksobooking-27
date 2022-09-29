@@ -1,7 +1,8 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Даниил Катаев](https://up.htmlacademy.ru/javascript/27/user/2064503).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Сигов](https://up.htmlacademy.ru/javascript/27/user/17860).
+
 
 ---
 

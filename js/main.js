@@ -20,4 +20,4 @@ function checkingCorrectData(min, max) {
 }
 
 console.log(getRandomNumbery(2, 10));
-console.log(getRandomFractionalNumber(2, 10, 6));
+console.log(getRandomFractionalNumber(2.2, 10.2, 6));

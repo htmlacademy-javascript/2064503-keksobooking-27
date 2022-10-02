@@ -13,7 +13,7 @@ function getRandomFractionalNumber(min, max, decimalPlaces) {
 }
 
 function checkingCorrectData(min, max) {
-  if (min > max) {
+  if (min > max || min < 0) {
     return false;
   }
   return true;

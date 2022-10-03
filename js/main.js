@@ -6,7 +6,7 @@ function getRandomNumbery(min, max) {
 }
 
 function getRandomFractionalNumber(min, max, decimalPlaces) {
-  if (checkingCorrectData(min, max) && (decimalPlaces == +decimalPlaces)) {
+  if (checkingCorrectData(min, max) && decimalPlaces === parseInt(decimalPlaces, 10)) {
     return (Math.random() * (max - min) + min).toFixed(decimalPlaces);
   }
   return NaN;

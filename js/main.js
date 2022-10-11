@@ -35,9 +35,8 @@ function getRandomPositiveFloat (a, b, digits = 1) {
 // Добавляет нуль спереди, для одного формата
 
 function formatNumber(number) {
-  if (number < 9)
-    return `0${number}`;
-  return number
+  if (number < 9) {return `0${number}`;}
+  return number;
 }
 
 // Создает объект с аватаром объявления
@@ -51,7 +50,7 @@ const createAuthor = () => ({
 const getRandomArray = (array) => {
   const randomArray = [];
   while (randomArray.length <= getRandomPositiveInteger(1,array.length)) {
-    let randomElement = getRandomArrayElement(array);
+    const randomElement = getRandomArrayElement(array);
     if (!randomArray.includes(randomElement)) {
       randomArray.push(randomElement);
     }
@@ -67,16 +66,17 @@ const getRandomArray = (array) => {
 // Создает объект с информацией об объявления
 
 const createOffer = () => ({
-  title: "Апартаменты в Питере",
+  title: 'Апартаменты в Питере',
   address: `{${location.lat}}, {${location.lng}}`,
   price: getRandomPositiveInteger(1, 1000000),
-  type: getRandomArrayElement(FEATURES),
+  type: getRandomArrayElement(TYPE_HOUSING),
   rooms: getRandomPositiveInteger(1, 10),
   guests: getRandomPositiveInteger(1, 20),
   checkin: getRandomArrayElement(CHECK_TIME),
   checkout: getRandomArrayElement(CHECK_TIME),
   features: getRandomArray(FEATURES),
-  description: "Топ за свои деньги",
+  description: 'Топ за свои деньги',
+  photos: getRandomArray(PHOTOS),
 });
 
 // создает объект с местоположением
@@ -96,6 +96,6 @@ const createAd = () => ({
 
 // Создает список с объектами
 
-const listAd = Array.from({length: 10}, createAd);
+const listAd = Array.from({length: SIMILAR_AD_COUNT}, createAd);
 
 console.log('listAd: ', listAd);

@@ -65,7 +65,7 @@ const getRandomArray = (array) => {
 
 // Создает объект с информацией об объявления
 
-const createOffer = () => ({
+const createOffer = (location) => ({
   title: 'Апартаменты в Питере',
   address: `{${location.lat}}, {${location.lng}}`,
   price: getRandomPositiveInteger(1, 1000000),
@@ -88,11 +88,14 @@ const createLocation = () => ({
 
 // Обединяет информацию об объявлении
 
-const createAd = () => ({
-  author: createAuthor(),
-  offer: createOffer(),
-  location: createLocation(),
-});
+const createAd = () => {
+  const location = createLocation();
+  return {
+    author: createAuthor(),
+    offer: createOffer(location),
+    location,
+  };
+};
 
 // Создает список с объектами
 

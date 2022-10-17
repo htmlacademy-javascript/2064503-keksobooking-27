@@ -26,6 +26,19 @@ function getRandomPositiveFloat (a, b, digits = 1) {
   return +result.toFixed(digits);
 }
 
+// Создает массив случайной длины, без повторений
+
+const getRandomArray = (array) => {
+  const randomArray = [];
+  while (randomArray.length <= getRandomPositiveInteger(1,array.length)) {
+    const randomElement = getRandomArrayElement(array);
+    if (!randomArray.includes(randomElement)) {
+      randomArray.push(randomElement);
+    }
+  }
+  return randomArray;
+};
+
 // Добавляет нуль спереди, для одного формата
 
 function formatNumber(number) {
@@ -33,4 +46,4 @@ function formatNumber(number) {
   return number;
 }
 
-export {getRandomArrayElement, getRandomPositiveInteger, getRandomPositiveFloat, formatNumber};
+export {getRandomArrayElement, getRandomPositiveInteger, getRandomPositiveFloat, getRandomArray, formatNumber};

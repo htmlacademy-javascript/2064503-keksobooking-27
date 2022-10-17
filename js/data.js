@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomPositiveInteger, getRandomPositiveFloat, formatNumber} from './util.js';
+import {getRandomArrayElement, getRandomPositiveInteger, getRandomPositiveFloat, getRandomArray, formatNumber} from './util.js';
 
 const TYPE_HOUSING = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const CHECK_TIME = ['12:00', '13:00', '14:00'];
@@ -9,24 +9,6 @@ const SIMILAR_AD_COUNT = 10;
 const createAuthor = () => ({
   avatar: `img/avatars/user${formatNumber(getRandomPositiveInteger(1,10))}.png`,
 });
-
-// Создает массив случайной длины, без повторений
-
-const getRandomArray = (array) => {
-  const randomArray = [];
-  while (randomArray.length <= getRandomPositiveInteger(1,array.length)) {
-    const randomElement = getRandomArrayElement(array);
-    if (!randomArray.includes(randomElement)) {
-      randomArray.push(randomElement);
-    }
-  }
-  return randomArray;
-};
-
-// let randomElement = getRandomArrayElement(array);
-//     if (!includes(randomElement, randomArray)) {
-//       randomArray.push(randomElement);
-//     }
 
 // Создает объект с информацией об объявления
 

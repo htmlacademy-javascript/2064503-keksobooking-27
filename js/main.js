@@ -1,3 +1,8 @@
 import {listAd} from './data.js';
+import {renderAdSuitable} from './ad-generator.js';
 
-listAd();
+const mapAd = document.querySelector('#map-canvas');
+
+listAd().forEach((ad) => {
+  mapAd.appendChild(renderAdSuitable(ad));
+});

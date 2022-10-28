@@ -5,4 +5,5 @@ const mapAd = document.querySelector('#map-canvas');
 
 listAd().forEach((ad) => {
   mapAd.appendChild(renderAdSuitable(ad));
+  console.log('mapAd: ', mapAd.innerHTML);
 });

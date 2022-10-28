@@ -1,7 +1,6 @@
 const similarAdSuitableTemplate = document.querySelector('#card').content.querySelector('.popup');
-const adSuitable = similarAdSuitableTemplate.cloneNode(true);
 
-const renderTitle = (title) => {
+const renderTitle = (adSuitable, title) => {
   if (title) {
     adSuitable.querySelector('.popup__title').textContent = title;
   } else {
@@ -9,7 +8,7 @@ const renderTitle = (title) => {
   }
 };
 
-const renderAddress = (address) => {
+const renderAddress = (adSuitable, address) => {
   if (address) {
     adSuitable.querySelector('.popup__text--address').textContent = address;
   } else {
@@ -17,7 +16,7 @@ const renderAddress = (address) => {
   }
 };
 
-const renderPrice = (price) => {
+const renderPrice = (adSuitable, price) => {
   if (price > 0) {
     adSuitable.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
   } else {
@@ -25,7 +24,7 @@ const renderPrice = (price) => {
   }
 };
 
-const renderType = (type) => {
+const renderType = (adSuitable, type) => {
   adSuitable.querySelector('.popup__type').textContent = {
     flat: 'Квартира',
     bungalow: 'Бунгало',
@@ -35,15 +34,15 @@ const renderType = (type) => {
   }[type];
 };
 
-const renderCapacity = (rooms, guests) => {
+const renderCapacity = (adSuitable, rooms, guests) => {
   adSuitable.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
 };
 
-const renderTime = (checkin, checkout) => {
+const renderTime = (adSuitable, checkin, checkout) => {
   adSuitable.querySelector('.popup__text--time').textContent = `заезд после ${checkin}, выезд до ${checkout}`;
 };
 
-const renderFeatures = (features) => {
+const renderFeatures = (adSuitable, features) => {
   if (features) {
     const featuresList = adSuitable.querySelectorAll('.popup__feature');
     const modifiers = features.map((feature) => `popup__feature--${feature}`);
@@ -59,7 +58,7 @@ const renderFeatures = (features) => {
   }
 };
 
-const renderDescription = (description) => {
+const renderDescription = (adSuitable, description) => {
   if (description) {
     adSuitable.querySelector('.popup__description').textContent = description;
   } else {
@@ -67,7 +66,7 @@ const renderDescription = (description) => {
   }
 };
 
-const renderPhotos = (photos) => {
+const renderPhotos = (adSuitable, photos) => {
   const photoTemplate = document.querySelector('#photos-item').content.querySelector('.popup__photo');
   const photoTemplateElement = photoTemplate.cloneNode(true);
   if (photos) {
@@ -80,7 +79,7 @@ const renderPhotos = (photos) => {
   }
 };
 
-const renderAvatar = (avatar) => {
+const renderAvatar = (adSuitable, avatar) => {
   if (avatar) {
     adSuitable.querySelector('.popup__avatar').src = avatar;
   } else {
@@ -89,16 +88,17 @@ const renderAvatar = (avatar) => {
 };
 
 const renderAdSuitable = ({author, offer}) => {
-  renderAvatar(author.avatar);
-  renderTitle(offer.title);
-  renderAddress(offer.address);
-  renderPrice(offer.price);
-  renderType(offer.type);
-  renderCapacity(offer.rooms, offer.guests);
-  renderTime(offer.checkin, offer.checkout);
-  renderFeatures(offer.features);
-  renderDescription(offer.description);
-  renderPhotos(offer.photos);
+  const adSuitable = similarAdSuitableTemplate.cloneNode(true);
+  renderTitle(adSuitable, offer.title);
+  renderAddress(adSuitable, offer.address);
+  renderPrice(adSuitable, offer.price);
+  renderType(adSuitable, offer.type);
+  renderCapacity(adSuitable, offer.rooms, offer.guests);
+  renderTime(adSuitable, offer.checkin, offer.checkout);
+  renderFeatures(adSuitable, offer.features);
+  renderDescription(adSuitable, offer.description);
+  renderPhotos(adSuitable, offer.photos);
+  renderAvatar(adSuitable, author.avatar);
 
   return adSuitable;
 };

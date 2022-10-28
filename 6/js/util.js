@@ -30,7 +30,8 @@ const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0,
 
 const getRandomArray = (array) => {
   const randomArray = [];
-  while (randomArray.length < getRandomPositiveInteger(0, array.length)) {
+  const count = getRandomPositiveInteger(0, array.length);
+  while (randomArray.length < count) {
     const randomElement = getRandomArrayElement(array);
     if (!randomArray.includes(randomElement)) {
       randomArray.push(randomElement);

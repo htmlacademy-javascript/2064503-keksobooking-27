@@ -3,7 +3,6 @@ import {renderAdSuitable} from './ad-generator.js';
 
 const mapAd = document.querySelector('#map-canvas');
 
-listAd().forEach((ad) => {
+listAd(2).forEach((ad) => {
   mapAd.appendChild(renderAdSuitable(ad));
-  console.log('mapAd: ', mapAd.innerHTML);
 });

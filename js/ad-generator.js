@@ -68,15 +68,16 @@ const renderDescription = (adSuitable, description) => {
 
 const renderPhotos = (adSuitable, photos) => {
   const photoTemplate = document.querySelector('#photos-item').content.querySelector('.popup__photo');
-  const photoTemplateElement = photoTemplate.cloneNode(true);
   if (photos) {
     photos.forEach((photo) => {
+      const photoTemplateElement = photoTemplate.cloneNode(true);
       photoTemplateElement.src = photo;
       adSuitable.querySelector('.popup__photos').append(photoTemplateElement);
     });
   } else {
     adSuitable.querySelector('.popup__photos').remove();
   }
+
 };
 
 const renderAvatar = (adSuitable, avatar) => {

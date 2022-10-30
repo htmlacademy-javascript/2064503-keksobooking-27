@@ -5,7 +5,7 @@ const adFormName = 'ad-form';
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersElements = mapFilters.querySelectorAll('.map__filter');
 const mapFeatures = mapFilters.querySelector('.map__features');
-const mapFilterName = 'map__filter';
+const mapFilterName = 'map__filters';
 
 const inactive = (block, elements, name) => {
   block.classList.add(`${name}--disabled`);

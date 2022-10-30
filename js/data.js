@@ -4,7 +4,8 @@ const TYPE_HOUSING = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const CHECK_TIME = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
-const SIMILAR_AD_COUNT = 10;
+const TITLES = ['Апартаменты в центре', 'Апартаменты на окраине'];
+const DESCRIPTIONS = ['Топ за свои деньги', 'От 3 дней', '-', ''];
 
 const createAuthor = () => ({
   avatar: `img/avatars/user${formatNumber(getRandomPositiveInteger(1,10))}.png`,
@@ -13,16 +14,16 @@ const createAuthor = () => ({
 // Создает объект с информацией об объявления
 
 const createOffer = (location) => ({
-  title: 'Апартаменты в Питере',
+  title: getRandomArrayElement(TITLES),
   address: `{${location.lat}}, {${location.lng}}`,
-  price: getRandomPositiveInteger(1, 1000000),
+  price: getRandomPositiveInteger(1000, 10000),
   type: getRandomArrayElement(TYPE_HOUSING),
   rooms: getRandomPositiveInteger(1, 10),
   guests: getRandomPositiveInteger(1, 20),
   checkin: getRandomArrayElement(CHECK_TIME),
   checkout: getRandomArrayElement(CHECK_TIME),
   features: getRandomArray(FEATURES),
-  description: 'Топ за свои деньги',
+  description: getRandomArrayElement(DESCRIPTIONS),
   photos: getRandomArray(PHOTOS),
 });
 
@@ -46,6 +47,6 @@ const createAd = () => {
 
 // Создает список с объектами
 
-const listAd = () => Array.from({length: SIMILAR_AD_COUNT}, createAd);
+const listAd = (count = 1) => Array.from({length: count}, createAd);
 
-export {listAd};
+export {listAd, createAd};

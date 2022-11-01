@@ -1,6 +1,6 @@
 import {listAd} from './data.js';
 import {renderAdSuitable} from './ad-generator.js';
-import {inactivePage, activePage} from './form.js';
+import {inactivePage, activePage} from './form-states.js';
 
 const mapAd = document.querySelector('#map-canvas');
 listAd(2).forEach((ad) => {
@@ -9,3 +9,5 @@ listAd(2).forEach((ad) => {
 
 inactivePage();
 activePage();
+
+

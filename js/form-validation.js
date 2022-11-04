@@ -55,7 +55,7 @@ pristine.addValidator(adForm.querySelector('#price'),
   onlyNumber,
   'Некорректное значение');
 
-//Комнаты и гости
+// Комнаты и гости
 
 const validateRoomNumber = () => {
   const roomNumber = Number(adForm.querySelector('#room_number').value);

@@ -21,7 +21,7 @@ pristine.addValidator(adForm.querySelector('#title'),
 
 const MAX_PRICE = 100000;
 
-const minPriceList = {
+const MinPriceList = {
   'bungalow': 0,
   'flat': 1000,
   'hotel': 3000,
@@ -33,12 +33,12 @@ const validateMaxPrice = (value) => value <= MAX_PRICE;
 
 const validateMinPrice = (value) => {
   const typeHousing = adForm.querySelector('#type').value;
-  return Number(value) >= minPriceList[typeHousing];
+  return Number(value) >= MinPriceList[typeHousing];
 };
 
 const textMinPrice = () => {
   const typeHousing = adForm.querySelector('#type').value;
-  return `Минимальная цена для данного типа жилья ${minPriceList[typeHousing]}`;
+  return `Минимальная цена для данного типа жилья ${MinPriceList[typeHousing]}`;
 };
 
 const onlyNumber = (value) => /^(0|-?[1-9]\d*)$/.test(value);

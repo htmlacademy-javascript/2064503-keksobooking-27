@@ -1,7 +1,7 @@
 import {listAd} from './data.js';
 import {renderAdSuitable} from './ad-generator.js';
 import {inactivePage, activePage} from './form-states.js';
-import './form-validation.js';
+import {validateForm} from './form-validation.js';
 
 
 inactivePage();
@@ -10,5 +10,6 @@ listAd(2).forEach((ad) => {
   mapAd.appendChild(renderAdSuitable(ad));
 });
 
-
 activePage();
+
+validateForm();

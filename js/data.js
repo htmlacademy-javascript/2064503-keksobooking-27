@@ -49,4 +49,4 @@ const createAd = () => {
 
 const listAd = (count = 1) => Array.from({length: count}, createAd);
 
-export {listAd, createAd};
+export {listAd};

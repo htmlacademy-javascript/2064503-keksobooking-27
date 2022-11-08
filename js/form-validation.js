@@ -1,5 +1,6 @@
-const adForm = document.querySelector('.ad-form');
+import {priceSlider} from './slider.js';
 
+const adForm = document.querySelector('.ad-form');
 
 // Проверка title
 
@@ -110,6 +111,8 @@ const validateForm = () => {
       evt.preventDefault();
     }
   });
+  priceSlider();
 };
 
-export {validateForm};
+
+export {validateForm, adForm, MAX_PRICE, MinPriceList};

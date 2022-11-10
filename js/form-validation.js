@@ -1,5 +1,6 @@
-const adForm = document.querySelector('.ad-form');
+import {priceSlider} from './slider.js';
 
+const adForm = document.querySelector('.ad-form');
 
 // Проверка title
 
@@ -20,12 +21,16 @@ const MinPriceList = {
   'palace': 10000,
 };
 
+const typeHousingField = adForm.querySelector('#type');
+
+typeHousingField.addEventListener('change', () => {
+  const price = adForm.querySelector('#price');
+  price.placeholder = MinPriceList[typeHousingField.value];
+});
+
 const validateMaxPrice = (value) => value <= MAX_PRICE;
 
-const validateMinPrice = (value) => {
-  const typeHousing = adForm.querySelector('#type').value;
-  return Number(value) >= MinPriceList[typeHousing];
-};
+const validateMinPrice = (value) => parseInt(value, 10) >= MinPriceList[typeHousingField.value];
 
 const textMinPrice = () => {
   const typeHousing = adForm.querySelector('#type').value;
@@ -49,6 +54,12 @@ const validateRoomNumber = () => {
 
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
+
+// Наличие данных
+
+const validateAvailabilityOfData = (value) => value;
+
+// Валидация
 
 const validateForm = () => {
   const pristine = new Pristine(adForm, {
@@ -81,6 +92,10 @@ const validateForm = () => {
     validateRoomNumber,
     'Количество гостей должно быть меньше или равно колучеству комнат');
 
+  pristine.addValidator(adForm.querySelector('#address'),
+    validateAvailabilityOfData,
+    'Введите адрес, использую метку на карте');
+
   timeIn.addEventListener('change', (evt) => {
     timeOut.value = evt.target.value;
   });
@@ -96,6 +111,8 @@ const validateForm = () => {
       evt.preventDefault();
     }
   });
+  priceSlider();
 };
 
-export {validateForm};
+
+export {validateForm, adForm, MAX_PRICE, MinPriceList};

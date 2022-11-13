@@ -31,7 +31,7 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const renderMap = (points) => {
+const renderMap = () => {
   const map = L.map('map-canvas')
     .on('load', () => {
       activePage();
@@ -47,6 +47,11 @@ const renderMap = (points) => {
 
   mainMarker.addTo(map);
 
+  return map;
+};
+
+
+const renderMapPoints = (map, points) => {
   points.forEach((point) => {
     const {lat, lng} = point['location'];
     const marker = L.marker(
@@ -64,5 +69,5 @@ const renderMap = (points) => {
   });
 };
 
-export {renderMap};
+export {renderMap, renderMapPoints};
 

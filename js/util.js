@@ -1,50 +1,76 @@
-// Генератор рандомного целого числа
+// Всплывающее окна
 
-const getRandomPositiveInteger = (a, b) => {
-  if (a < 0 || b < 0) {
-    return NaN;
+const ALERT_SHOW_TIME = 5000;
+
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '1000';
+  alertContainer.style.position = 'fixed';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.color = 'red';
+  alertContainer.style.backgroundColor = 'black';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+// Сообщение при успешной отправки
+
+const successMessageTemplate = document.querySelector('#success')
+  .content.querySelector('.success');
+const successMessage = successMessageTemplate.cloneNode(true);
+
+const onCloseSubmitMessageClick = () => {
+  successMessage.remove();
+  successMessage.removeEventListener('click', onCloseSubmitMessageClick);
+  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
+};
+
+function onSuccessMessageEscKeydown (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    onCloseSubmitMessageClick();
   }
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
+}
+
+const showSuccessMessage = () => {
+  document.body.append(successMessage);
+  successMessage.addEventListener('click', onCloseSubmitMessageClick);
+  document.addEventListener('keydown', onSuccessMessageEscKeydown);
 };
 
-// Генератор рандомного дробного числа
+// Сообщение при ошибки отправки
 
-const getRandomPositiveFloat = (a, b, digits = 1) => {
-  if (a < 0 || b < 0 || digits < 0) {
-    return NaN;
+const errorSubmitMessageTemplate = document.querySelector('#error')
+  .content.querySelector('.error');
+const errorSubmitMessage = errorSubmitMessageTemplate.cloneNode(true);
+
+const onErrorMessageClick = () => {
+  errorSubmitMessage.remove();
+  document.removeEventListener('keydown', onErrorMessageEscKeydown);
+  errorSubmitMessage.removeEventListener('click', onErrorMessageClick);
+};
+
+function onErrorMessageEscKeydown (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    onErrorMessageClick();
   }
-  const lower = Math.min(a, b);
-  const upper = Math.max(a, b);
-  const result = Math.random() * (upper - lower) + lower;
-  return +result.toFixed(digits);
+}
+const showErrorMessage = () => {
+  document.body.append(errorSubmitMessage);
+  errorSubmitMessage.addEventListener('click', onErrorMessageClick);
+  document.addEventListener('keydown', onErrorMessageEscKeydown);
 };
 
-// Выбирает случайный элемент из массива
-
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
-
-// Создает массив случайной длины, без повторений
-
-const getRandomArray = (array) => {
-  const randomArray = [];
-  const count = getRandomPositiveInteger(0, array.length);
-  while (randomArray.length < count) {
-    const randomElement = getRandomArrayElement(array);
-    if (!randomArray.includes(randomElement)) {
-      randomArray.push(randomElement);
-    }
-  }
-  return randomArray;
-};
-
-// Добавляет нуль спереди, для одного формата
-
-const formatNumber = (number) => {
-  if (number < 10) {return `0${number}`;}
-  return number;
-};
-
-export {getRandomArrayElement, getRandomPositiveInteger, getRandomPositiveFloat, getRandomArray, formatNumber};
+export {showAlert, showErrorMessage, showSuccessMessage};

@@ -1,9 +1,5 @@
-import {listAd} from './data.js';
-import {renderAdSuitable} from './ad-generator.js';
+import {renderAdSuitable} from './rendering-ads.js';
 import {activePage, addAddress} from './form-states.js';
-
-const NUMBER_OF_SIMILAR_ADS = 10;
-const points = listAd(NUMBER_OF_SIMILAR_ADS);
 
 const STARTING_POSITION = {
   lat: 35.69042,
@@ -35,7 +31,7 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const renderMap = () => {
+const renderMap = (points) => {
   const map = L.map('map-canvas')
     .on('load', () => {
       activePage();
@@ -66,7 +62,6 @@ const renderMap = () => {
       .addTo(map)
       .bindPopup(renderAdSuitable(point));
   });
-
 };
 
 export {renderMap};

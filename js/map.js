@@ -1,9 +1,5 @@
-import {listAd} from './data.js';
-import {renderAdSuitable} from './ad-generator.js';
+import {renderAdSuitable} from './rendering-ads.js';
 import {activePage, addAddress} from './form-states.js';
-
-const NUMBER_OF_SIMILAR_ADS = 10;
-const points = listAd(NUMBER_OF_SIMILAR_ADS);
 
 const STARTING_POSITION = {
   lat: 35.69042,
@@ -51,6 +47,11 @@ const renderMap = () => {
 
   mainMarker.addTo(map);
 
+  return map;
+};
+
+
+const renderMapPoints = (map, points) => {
   points.forEach((point) => {
     const {lat, lng} = point['location'];
     const marker = L.marker(
@@ -66,8 +67,7 @@ const renderMap = () => {
       .addTo(map)
       .bindPopup(renderAdSuitable(point));
   });
-
 };
 
-export {renderMap};
+export {renderMap, renderMapPoints};
 

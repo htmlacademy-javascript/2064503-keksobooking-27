@@ -68,7 +68,7 @@ const renderDescription = (adSuitable, description) => {
 
 const renderPhotos = (adSuitable, photos) => {
   const photoTemplate = document.querySelector('#photos-item').content.querySelector('.popup__photo');
-  if (photos.length > 0) {
+  if (photos) {
     photos.forEach((photo) => {
       const photoTemplateElement = photoTemplate.cloneNode(true);
       photoTemplateElement.src = photo;

@@ -1,17 +1,17 @@
-import {priceSlider} from './slider.js';
+import {resetPriceSlider} from './slider.js';
+import {sendData} from './api.js';
+import {showErrorMessage, showSuccessMessage} from './util.js';
 
 const adForm = document.querySelector('.ad-form');
-
-// Проверка title
-
-const TITLE_MIN_LENGTH = 30;
-const TITLE_MAX_LENGTH = 100;
-
-const validateTitle = (value) => value.length >= TITLE_MIN_LENGTH && value.length <= TITLE_MAX_LENGTH;
-
-// Проверка price
+const typeHousingField = adForm.querySelector('#type');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
+const resetButton = adForm.querySelector('.ad-form__reset');
+const submitButton = adForm.querySelector('.ad-form__submit');
 
 const MAX_PRICE = 100000;
+const TITLE_MIN_LENGTH = 30;
+const TITLE_MAX_LENGTH = 100;
 
 const MinPriceList = {
   'bungalow': 0,
@@ -21,7 +21,15 @@ const MinPriceList = {
   'palace': 10000,
 };
 
-const typeHousingField = adForm.querySelector('#type');
+// Наличие данных
+
+const validateAvailabilityOfData = (value) => value.length > 0;
+
+// Проверка title
+
+const validateTitle = (value) => value.length >= TITLE_MIN_LENGTH && value.length <= TITLE_MAX_LENGTH;
+
+// Проверка price
 
 typeHousingField.addEventListener('change', () => {
   const price = adForm.querySelector('#price');
@@ -39,6 +47,7 @@ const textMinPrice = () => {
 
 const onlyNumber = (value) => /^(0|-?[1-9]\d*)$/.test(value);
 
+
 //Комнаты и гости
 
 const validateRoomNumber = () => {
@@ -50,69 +59,94 @@ const validateRoomNumber = () => {
   return roomNumber >= capacity && capacity !== 0;
 };
 
+
 // Время заезда и выезда
 
-const timeIn = adForm.querySelector('#timein');
-const timeOut = adForm.querySelector('#timeout');
+timeIn.addEventListener('change', (evt) => {
+  timeOut.value = evt.target.value;
+});
 
-// Наличие данных
+timeOut.addEventListener('change', (evt) => {
+  timeIn.value = evt.target.value;
+});
 
-const validateAvailabilityOfData = (value) => value;
+// Перезагрузка формы
+
+resetButton.addEventListener('click', () => {
+  resetPriceSlider();
+  adForm.reset();
+});
 
 // Валидация
 
-const validateForm = () => {
-  const pristine = new Pristine(adForm, {
-    classTo: 'ad-form__element',
-    errorTextParent: 'ad-form__element',
-    errorTextClass: 'text-help ',
-  });
+const pristine = new Pristine(adForm, {
+  classTo: 'ad-form__element',
+  errorTextParent: 'ad-form__element',
+  errorTextClass: 'text-help ',
+});
 
-  pristine.addValidator(adForm.querySelector('#price'),
-    validateMaxPrice,
-    `Максимальное значение — ${MAX_PRICE}`);
+pristine.addValidator(adForm.querySelector('#title'),
+  validateTitle,
+  `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`);
 
-  pristine.addValidator(adForm.querySelector('#price'),
-    validateMinPrice,
-    textMinPrice);
+pristine.addValidator(adForm.querySelector('#price'),
+  validateMaxPrice,
+  `Максимальное значение — ${MAX_PRICE}`);
 
-  pristine.addValidator(adForm.querySelector('#price'),
-    onlyNumber,
-    'Некорректное значение');
+pristine.addValidator(adForm.querySelector('#price'),
+  validateMinPrice,
+  textMinPrice);
 
-  pristine.addValidator(adForm.querySelector('#title'),
-    validateTitle,
-    `От ${TITLE_MIN_LENGTH} до ${TITLE_MAX_LENGTH} символов`);
+pristine.addValidator(adForm.querySelector('#price'),
+  onlyNumber,
+  'Некорректное значение');
 
-  pristine.addValidator(adForm.querySelector('#room_number'),
-    validateRoomNumber,
-    'Количество комнат должно быть больше или равно колучеству гостей');
+pristine.addValidator(adForm.querySelector('#address'),
+  validateAvailabilityOfData,
+  'Введите адрес, использую метку на карте');
 
-  pristine.addValidator(adForm.querySelector('#capacity'),
-    validateRoomNumber,
-    'Количество гостей должно быть меньше или равно колучеству комнат');
+pristine.addValidator(adForm.querySelector('#room_number'),
+  validateRoomNumber,
+  'Количество комнат должно быть больше или равно колучеству гостей');
 
-  pristine.addValidator(adForm.querySelector('#address'),
-    validateAvailabilityOfData,
-    'Введите адрес, использую метку на карте');
+pristine.addValidator(adForm.querySelector('#capacity'),
+  validateRoomNumber,
+  'Количество гостей должно быть меньше или равно колучеству комнат');
 
-  timeIn.addEventListener('change', (evt) => {
-    timeOut.value = evt.target.value;
-  });
+// Отправка формы
 
-  timeOut.addEventListener('change', (evt) => {
-    timeIn.value = evt.target.value;
-  });
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохраняю...';
+};
 
-  // Отправка формы
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Сохранить';
+};
 
+const setUserFormSubmit = () => {
   adForm.addEventListener('submit', (evt) => {
-    if (!pristine.validate()) {
-      evt.preventDefault();
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          resetPriceSlider();
+          adForm.reset();
+          showSuccessMessage();
+          unblockSubmitButton();
+        },
+        () => {
+          showErrorMessage();
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
     }
   });
-  priceSlider();
 };
 
 
-export {validateForm, adForm, MAX_PRICE, MinPriceList};
+export {setUserFormSubmit};

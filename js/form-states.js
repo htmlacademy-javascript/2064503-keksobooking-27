@@ -8,7 +8,7 @@ const mapFeatures = mapFilters.querySelector('.map__features');
 const mapFilterName = 'map__filters';
 
 const addressField = adForm.querySelector('#address');
-addressField.readOnly = true;
+
 const COORDINATE_ACCURACY = 5;
 
 // Состояния формы
@@ -42,7 +42,7 @@ const activePage = () => {
 // Поле адреса
 
 const addAddress = (address) => {
-  addressField.value = `${(address['lat']).toFixed(COORDINATE_ACCURACY)}, ${(address['lng']).toFixed(COORDINATE_ACCURACY)}`;
+  addressField.value = `${(address.lat).toFixed(COORDINATE_ACCURACY)}, ${(address.lng).toFixed(COORDINATE_ACCURACY)}`;
 };
 
 export {inactivePage, activePage, addAddress};

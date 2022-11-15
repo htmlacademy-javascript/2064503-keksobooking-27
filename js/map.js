@@ -1,10 +1,13 @@
 import {renderAdSuitable} from './rendering-ads.js';
 import {activePage, addAddress} from './form-states.js';
 
+
 const STARTING_POSITION = {
   lat: 35.69042,
   lng: 139.75181,
 };
+
+addAddress(STARTING_POSITION);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -53,7 +56,7 @@ const renderMap = () => {
 
 const renderMapPoints = (map, points) => {
   points.forEach((point) => {
-    const {lat, lng} = point['location'];
+    const {lat, lng} = point.location;
     const marker = L.marker(
       {
         lat,

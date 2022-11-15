@@ -1,5 +1,13 @@
 const similarAdSuitableTemplate = document.querySelector('#card').content.querySelector('.popup');
 
+const ApartmentTypeList = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
+
 const renderTitle = (adSuitable, title) => {
   if (title) {
     adSuitable.querySelector('.popup__title').textContent = title;
@@ -25,13 +33,7 @@ const renderPrice = (adSuitable, price) => {
 };
 
 const renderType = (adSuitable, type) => {
-  adSuitable.querySelector('.popup__type').textContent = {
-    flat: 'Квартира',
-    bungalow: 'Бунгало',
-    house: 'Дом',
-    palace: 'Двоерц',
-    hotel: 'Отель',
-  }[type];
+  adSuitable.querySelector('.popup__type').textContent = ApartmentTypeList[type];
 };
 
 const renderCapacity = (adSuitable, rooms, guests) => {
@@ -43,11 +45,11 @@ const renderTime = (adSuitable, checkin, checkout) => {
 };
 
 const renderFeatures = (adSuitable, features) => {
-  if (features) {
+  if (features.length > 0) {
     const featuresList = adSuitable.querySelectorAll('.popup__feature');
     const modifiers = features.map((feature) => `popup__feature--${feature}`);
 
-    featuresList.forEach ((featureItem) => {
+    featuresList.forEach((featureItem) => {
       if (!(modifiers.includes(featureItem.classList[1]))) {
         featureItem.remove();
       }

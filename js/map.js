@@ -1,5 +1,5 @@
 import {renderAdSuitable} from './rendering-ads.js';
-import {activePage, addAddress} from './form-states.js';
+import {activateAdFormField, addAddress} from './form-states.js';
 
 
 const STARTING_POSITION = {
@@ -37,7 +37,7 @@ const icon = L.icon({
 const renderMap = () => {
   const map = L.map('map-canvas')
     .on('load', () => {
-      activePage();
+      activateAdFormField();
     })
     .setView(STARTING_POSITION, 15);
 
@@ -72,5 +72,5 @@ const renderMapPoints = (map, points) => {
   });
 };
 
-export {renderMap, renderMapPoints};
+export {renderMap, renderMapPoints, STARTING_POSITION};
 

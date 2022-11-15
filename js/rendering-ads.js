@@ -45,7 +45,7 @@ const renderTime = (adSuitable, checkin, checkout) => {
 };
 
 const renderFeatures = (adSuitable, features) => {
-  if (features.length > 0) {
+  if (features) {
     const featuresList = adSuitable.querySelectorAll('.popup__feature');
     const modifiers = features.map((feature) => `popup__feature--${feature}`);
 

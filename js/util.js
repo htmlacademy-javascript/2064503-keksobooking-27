@@ -36,7 +36,7 @@ const onCloseSubmitMessageClick = () => {
   document.removeEventListener('keydown', onSuccessMessageEscKeydown);
 };
 
-function onSuccessMessageEscKeydown (evt) {
+function onSuccessMessageEscKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     onCloseSubmitMessageClick();
@@ -61,16 +61,28 @@ const onErrorMessageClick = () => {
   errorSubmitMessage.removeEventListener('click', onErrorMessageClick);
 };
 
-function onErrorMessageEscKeydown (evt) {
+function onErrorMessageEscKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     onErrorMessageClick();
   }
 }
+
 const showErrorMessage = () => {
   document.body.append(errorSubmitMessage);
   errorSubmitMessage.addEventListener('click', onErrorMessageClick);
   document.addEventListener('keydown', onErrorMessageEscKeydown);
 };
 
-export {showAlert, showErrorMessage, showSuccessMessage};
+// debounce
+
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {showAlert, showErrorMessage, showSuccessMessage, debounce};

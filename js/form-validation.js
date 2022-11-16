@@ -2,7 +2,7 @@ import {resetPriceSlider} from './slider.js';
 import {sendData} from './api.js';
 import {showErrorMessage, showSuccessMessage} from './util.js';
 import {addAddress} from './form-states.js';
-import {STARTING_POSITION} from './map.js';
+import {STARTING_POSITION, returnMapPoints} from './map.js';
 
 const adForm = document.querySelector('.ad-form');
 const typeHousingField = adForm.querySelector('#type');
@@ -79,6 +79,7 @@ resetButton.addEventListener('click', (evt) => {
   resetPriceSlider();
   adForm.reset();
   addAddress(STARTING_POSITION);
+  returnMapPoints(STARTING_POSITION);
 });
 
 // Валидация

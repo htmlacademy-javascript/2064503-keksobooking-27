@@ -1,11 +1,19 @@
 import {renderAdSuitable} from './rendering-ads.js';
 import {activateAdFormField, addAddress} from './form-states.js';
 
+const NUMBER_OF_SIMILAR_ADS = 10;
 
 const STARTING_POSITION = {
   lat: 35.69042,
   lng: 139.75181,
 };
+
+const map = L.map('map-canvas')
+  .on('load', () => {
+    activateAdFormField();
+  });
+
+const markerGroup = L.layerGroup().addTo(map);
 
 addAddress(STARTING_POSITION);
 
@@ -35,11 +43,7 @@ const icon = L.icon({
 });
 
 const renderMap = () => {
-  const map = L.map('map-canvas')
-    .on('load', () => {
-      activateAdFormField();
-    })
-    .setView(STARTING_POSITION, 15);
+  map.setView(STARTING_POSITION, 13);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -49,12 +53,10 @@ const renderMap = () => {
   ).addTo(map);
 
   mainMarker.addTo(map);
-
-  return map;
 };
 
 
-const renderMapPoints = (map, points) => {
+const renderMapPoints = (points) => {
   points.forEach((point) => {
     const {lat, lng} = point.location;
     const marker = L.marker(
@@ -67,10 +69,17 @@ const renderMapPoints = (map, points) => {
       },
     );
     marker
-      .addTo(map)
+      .addTo(markerGroup)
       .bindPopup(renderAdSuitable(point));
   });
 };
 
-export {renderMap, renderMapPoints, STARTING_POSITION};
+const setAdPoints = (points) => {
+  markerGroup.clearLayers();
+  renderMapPoints(points.slice(0, NUMBER_OF_SIMILAR_ADS));
+};
+
+const returnMapPoints = (coordinates) => mainMarker.setLatLng(coordinates);
+
+export {renderMap, setAdPoints, STARTING_POSITION, returnMapPoints};
 

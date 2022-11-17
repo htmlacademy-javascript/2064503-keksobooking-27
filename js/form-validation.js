@@ -2,7 +2,7 @@ import {showErrorMessage, showSuccessMessage} from './util.js';
 import {STARTING_POSITION, returnMapPoints} from './map.js';
 import {resetPriceSlider} from './slider.js';
 import {addAddress} from './form-states.js';
-import {renderPhotos} from './photos.js';
+import {renderPhotos, resetPhotos} from './photos.js';
 import {sendData} from './api.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -22,6 +22,17 @@ const MinPriceList = {
   'hotel': 3000,
   'house': 5000,
   'palace': 10000,
+};
+
+// Перезагрузка формы
+
+const resetForm = () => {
+  resetPriceSlider();
+  adForm.reset();
+  resetPhotos();
+  resetPriceSlider();
+  addAddress(STARTING_POSITION);
+  returnMapPoints(STARTING_POSITION);
 };
 
 // Наличие данных
@@ -77,10 +88,7 @@ timeOut.addEventListener('change', (evt) => {
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  resetPriceSlider();
-  adForm.reset();
-  addAddress(STARTING_POSITION);
-  returnMapPoints(STARTING_POSITION);
+  resetForm();
 });
 
 // Валидация
@@ -139,9 +147,8 @@ const setUserFormSubmit = () => {
       blockSubmitButton();
       sendData(
         () => {
-          resetPriceSlider();
-          adForm.reset();
           showSuccessMessage();
+          resetForm();
           unblockSubmitButton();
         },
         () => {

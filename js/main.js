@@ -1,5 +1,5 @@
 import {inactivePage, activateFilterField} from './form-states.js';
-import {setUserFormSubmit} from './form-validation.js';
+import {setUserFormSubmit} from './form.js';
 import {renderMap, setAdPoints} from './map.js';
 import {priceSlider} from './slider.js';
 import {useFilters} from './filter.js';

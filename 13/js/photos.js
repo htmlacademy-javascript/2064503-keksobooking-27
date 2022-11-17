@@ -21,4 +21,9 @@ const renderPhotos = () => {
   fileApartment.addEventListener('change', () => onDisplayPhoto(fileApartment, imageApartment));
 };
 
-export {renderPhotos};
+const resetPhotos = () => {
+  imageAvatar.src = 'img/muffin-grey.svg';
+  imageApartment.src = 'img/muffin-grey.svg';
+};
+
+export {renderPhotos, resetPhotos};

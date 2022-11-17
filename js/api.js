@@ -1,13 +1,11 @@
-import {showAlert} from './util.js';
-
-const getData = (onSuccess) => {
+const getData = (onSuccess, onFail) => {
   fetch('https://27.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((ads) => {
       onSuccess(ads);
     })
     .catch(() => {
-      showAlert('Не удалось загрузить список объявлений');
+      onFail();
     });
 };
 

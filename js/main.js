@@ -1,19 +1,18 @@
-import {inactivePage} from './form-states.js';
+import {inactivePage, activateFilterField} from './form-states.js';
 import {setUserFormSubmit} from './form-validation.js';
+import {renderMap, setAdPoints} from './map.js';
 import {priceSlider} from './slider.js';
-import {renderMap, renderMapPoints} from './map.js';
+import {useFilters} from './filter.js';
+import {showAlert} from './util.js';
 import {getData} from './api.js';
 
-const NUMBER_OF_SIMILAR_ADS = 10;
-
-priceSlider();
-
 inactivePage();
-
 setUserFormSubmit();
-
-const map = renderMap();
+priceSlider();
+renderMap();
 
 getData((ads) => {
-  renderMapPoints(map, ads.slice(0, NUMBER_OF_SIMILAR_ADS));
-});
+  activateFilterField();
+  setAdPoints(ads);
+  useFilters(ads, setAdPoints);
+}, () => showAlert('Не удалось загрузить список объявлений'));

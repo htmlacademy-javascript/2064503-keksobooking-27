@@ -1,8 +1,9 @@
-import {resetPriceSlider} from './slider.js';
-import {sendData} from './api.js';
 import {showErrorMessage, showSuccessMessage} from './util.js';
-import {addAddress} from './form-states.js';
 import {STARTING_POSITION, returnMapPoints} from './map.js';
+import {resetPriceSlider} from './slider.js';
+import {addAddress} from './form-states.js';
+import {renderPhotos} from './photos.js';
+import {sendData} from './api.js';
 
 const adForm = document.querySelector('.ad-form');
 const typeHousingField = adForm.querySelector('#type');
@@ -151,6 +152,7 @@ const setUserFormSubmit = () => {
       );
     }
   });
+  renderPhotos();
 };
 
 

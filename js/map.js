@@ -81,5 +81,5 @@ const setAdPoints = (points) => {
 
 const returnMapPoints = (coordinates) => mainMarker.setLatLng(coordinates);
 
-export {renderMap, setAdPoints, STARTING_POSITION, returnMapPoints};
+export {renderMap, setAdPoints, STARTING_POSITION, NUMBER_OF_SIMILAR_ADS, returnMapPoints};
 

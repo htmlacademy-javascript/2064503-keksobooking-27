@@ -1,4 +1,5 @@
 import {debounce} from './util.js';
+import {NUMBER_OF_SIMILAR_ADS} from './map.js';
 
 const adFilters = document.querySelector('.map__filters');
 const typeFilter = adFilters.querySelector('#housing-type');
@@ -54,8 +55,12 @@ const filterAds = (ad) =>
 
 const useFilters = (adsList, cb) => {
   const onChangeFilters = (ads) => () => {
-    const filteredListAds = ads.slice()
-      .filter(filterAds);
+    const filteredListAds = [];
+    for (let i = 0; i < ads.length && filteredListAds.length < NUMBER_OF_SIMILAR_ADS; i++) {
+      if (filterAds(ads[i])) {
+        filteredListAds.push(ads[i]);
+      }
+    }
 
     cb(filteredListAds);
   };

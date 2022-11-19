@@ -84,5 +84,5 @@ const resetMap = () => {
   returnMapPoints(STARTING_POSITION);
 };
 
-export {renderMap, setAdPoints, returnMapPoints, resetMap};
+export {renderMap, setAdPoints, returnMapPoints, NUMBER_OF_SIMILAR_ADS, resetMap};
 

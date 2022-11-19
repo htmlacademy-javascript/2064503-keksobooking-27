@@ -1,8 +1,6 @@
 import {renderAdSuitable} from './rendering-ads.js';
 import {activateAdFormField, addAddress} from './form-states.js';
 
-const NUMBER_OF_SIMILAR_ADS = 10;
-
 const STARTING_POSITION = {
   lat: 35.69042,
   lng: 139.75181,
@@ -74,7 +72,7 @@ const renderMapPoints = (points) => {
 
 const setAdPoints = (points) => {
   markerGroup.clearLayers();
-  renderMapPoints(points.slice(0, NUMBER_OF_SIMILAR_ADS));
+  renderMapPoints(points);
 };
 
 const returnMapPoints = (coordinates) => mainMarker.setLatLng(coordinates);
@@ -84,5 +82,5 @@ const resetMap = () => {
   returnMapPoints(STARTING_POSITION);
 };
 
-export {renderMap, setAdPoints, returnMapPoints, NUMBER_OF_SIMILAR_ADS, resetMap};
+export {renderMap, setAdPoints, returnMapPoints, resetMap};
 

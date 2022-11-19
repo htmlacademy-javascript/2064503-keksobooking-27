@@ -1,5 +1,4 @@
 import {debounce} from './util.js';
-import {NUMBER_OF_SIMILAR_ADS} from './map.js';
 
 const adFilters = document.querySelector('.map__filters');
 const typeFilter = adFilters.querySelector('#housing-type');
@@ -7,6 +6,8 @@ const priceFilter = adFilters.querySelector('#housing-price');
 const roomsFilter = adFilters.querySelector('#housing-rooms');
 const guestsFilter = adFilters.querySelector('#housing-guests');
 const featuresFilter = adFilters.querySelector('#housing-features');
+
+const NUMBER_OF_SIMILAR_ADS = 10;
 
 const priceList = {
   low: {
@@ -68,4 +69,4 @@ const useFilters = (adsList, cb) => {
   adFilters.addEventListener('change', debounce(onChangeFilters(adsList)));
 };
 
-export {useFilters};
+export {useFilters, NUMBER_OF_SIMILAR_ADS};

@@ -61,11 +61,13 @@ const filterAds = (ad) =>
 const useFilters = (adsList, cb) => {
   const onFiltersChange = (ads) => () => {
     const filteredListAds = [];
-    for (let i = 0; i < ads.length && filteredListAds.length < NUMBER_OF_SIMILAR_ADS; i++) {
-      if (filterAds(ads[i])) {
-        filteredListAds.push(ads[i]);
+
+    ads.every((ad) => {
+      if (filterAds(ad)) {
+        filteredListAds.push(ad);
       }
-    }
+      return filteredListAds.length < NUMBER_OF_SIMILAR_ADS;
+    });
 
     cb(filteredListAds);
   };

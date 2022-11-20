@@ -16,7 +16,7 @@ noUiSlider.create(priceSliderElement, {
   }
 });
 
-const priceSlider = () => {
+const initPriceSlider = () => {
   priceSliderElement.noUiSlider.on('slide', () => {
     priceField.value = priceSliderElement.noUiSlider.get();
   });
@@ -28,5 +28,5 @@ const priceSlider = () => {
 
 const resetPriceSlider = () => priceSliderElement.noUiSlider.reset();
 
-export {priceSlider, resetPriceSlider};
+export {initPriceSlider, resetPriceSlider};
 

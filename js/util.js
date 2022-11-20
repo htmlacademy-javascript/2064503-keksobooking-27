@@ -30,38 +30,38 @@ const successMessageTemplate = document.querySelector('#success')
   .content.querySelector('.success');
 const successMessage = successMessageTemplate.cloneNode(true);
 
-const onCloseSubmitMessageClick = () => {
+const onSuccessClick = () => {
   successMessage.remove();
-  successMessage.removeEventListener('click', onCloseSubmitMessageClick);
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
+  successMessage.removeEventListener('click', onSuccessClick);
+  document.removeEventListener('keydown', onSuccessKeydown);
 };
 
-function onSuccessMessageEscKeydown(evt) {
+function onSuccessKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    onCloseSubmitMessageClick();
+    onSuccessClick();
   }
 }
 
 const showSuccessMessage = () => {
   document.body.append(successMessage);
-  successMessage.addEventListener('click', onCloseSubmitMessageClick);
-  document.addEventListener('keydown', onSuccessMessageEscKeydown);
+  successMessage.addEventListener('click', onSuccessClick);
+  document.addEventListener('keydown', onSuccessKeydown);
 };
 
-// Сообщение при ошибки отправки
+// Сообщение при ошибке отправки
 
-const errorSubmitMessageTemplate = document.querySelector('#error')
+const errorMessageTemplate = document.querySelector('#error')
   .content.querySelector('.error');
-const errorSubmitMessage = errorSubmitMessageTemplate.cloneNode(true);
+const errorMessage = errorMessageTemplate.cloneNode(true);
 
 const onErrorMessageClick = () => {
-  errorSubmitMessage.remove();
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
-  errorSubmitMessage.removeEventListener('click', onErrorMessageClick);
+  errorMessage.remove();
+  document.removeEventListener('keydown', onErrorMessageKeydown);
+  errorMessage.removeEventListener('click', onErrorMessageClick);
 };
 
-function onErrorMessageEscKeydown(evt) {
+function onErrorMessageKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     onErrorMessageClick();
@@ -69,9 +69,9 @@ function onErrorMessageEscKeydown(evt) {
 }
 
 const showErrorMessage = () => {
-  document.body.append(errorSubmitMessage);
-  errorSubmitMessage.addEventListener('click', onErrorMessageClick);
-  document.addEventListener('keydown', onErrorMessageEscKeydown);
+  document.body.append(errorMessage);
+  errorMessage.addEventListener('click', onErrorMessageClick);
+  document.addEventListener('keydown', onErrorMessageKeydown);
 };
 
 // debounce

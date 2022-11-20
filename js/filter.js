@@ -24,6 +24,10 @@ const priceList = {
   }
 };
 
+const resetFilter = () => {
+  adFilters.reset();
+};
+
 const filterType = ({offer}) => typeFilter.value === 'any' ||
   offer.type === typeFilter.value;
 
@@ -55,7 +59,7 @@ const filterAds = (ad) =>
   filterFeatures(ad);
 
 const useFilters = (adsList, cb) => {
-  const onChangeFilters = (ads) => () => {
+  const onFiltersChange = (ads) => () => {
     const filteredListAds = [];
     for (let i = 0; i < ads.length && filteredListAds.length < NUMBER_OF_SIMILAR_ADS; i++) {
       if (filterAds(ads[i])) {
@@ -66,7 +70,7 @@ const useFilters = (adsList, cb) => {
     cb(filteredListAds);
   };
 
-  adFilters.addEventListener('change', debounce(onChangeFilters(adsList)));
+  adFilters.addEventListener('change', debounce(onFiltersChange(adsList)));
 };
 
-export {useFilters, NUMBER_OF_SIMILAR_ADS};
+export {useFilters, NUMBER_OF_SIMILAR_ADS, resetFilter};

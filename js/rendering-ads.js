@@ -1,6 +1,6 @@
 const similarAdSuitableTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const ApartmentTypeList = {
+const apartmentTypeList = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
@@ -33,7 +33,7 @@ const renderPrice = (adSuitable, price) => {
 };
 
 const renderType = (adSuitable, type) => {
-  adSuitable.querySelector('.popup__type').textContent = ApartmentTypeList[type];
+  adSuitable.querySelector('.popup__type').textContent = apartmentTypeList[type];
 };
 
 const renderCapacity = (adSuitable, rooms, guests) => {

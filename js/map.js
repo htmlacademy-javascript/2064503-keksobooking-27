@@ -1,7 +1,7 @@
 import {renderAdSuitable} from './rendering-ads.js';
-import {activateAdFormField, addAddress} from './form-states.js';
+import {activateAdFormField, setAddress} from './form-states.js';
 
-const STARTING_POSITION = {
+const startingPosition = {
   lat: 35.69042,
   lng: 139.75181,
 };
@@ -11,7 +11,7 @@ const map = L.map('map-canvas')
     activateAdFormField();
   });
 const markerGroup = L.layerGroup().addTo(map);
-addAddress(STARTING_POSITION);
+setAddress(startingPosition);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -26,7 +26,7 @@ const icon = L.icon({
 });
 
 const mainMarker = L.marker(
-  STARTING_POSITION,
+  startingPosition,
   {
     draggable: true,
     icon: mainPinIcon,
@@ -35,11 +35,11 @@ const mainMarker = L.marker(
 
 mainMarker.on('moveend', (evt) => {
   const coordinates = evt.target.getLatLng();
-  addAddress(coordinates);
+  setAddress(coordinates);
 });
 
 const renderMap = () => {
-  map.setView(STARTING_POSITION, 13);
+  map.setView(startingPosition, 13);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -70,17 +70,18 @@ const renderMapPoints = (points) => {
   });
 };
 
-const setAdPoints = (points) => {
+const replaceMarkers = (points) => {
   markerGroup.clearLayers();
   renderMapPoints(points);
 };
 
-const returnMapPoints = (coordinates) => mainMarker.setLatLng(coordinates);
+const addMarkers = (coordinates) => mainMarker.setLatLng(coordinates);
 
 const resetMap = () => {
-  addAddress(STARTING_POSITION);
-  returnMapPoints(STARTING_POSITION);
+  setAddress(startingPosition);
+  addMarkers(startingPosition);
+  map.setView(startingPosition, 13);
 };
 
-export {renderMap, setAdPoints, returnMapPoints, resetMap};
+export {renderMap, replaceMarkers, resetMap};
 

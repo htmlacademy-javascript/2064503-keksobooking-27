@@ -11,7 +11,7 @@ const COORDINATE_ACCURACY = 5;
 
 // Состояния формы
 
-const inactivePage = () => {
+const deactivatePage = () => {
   adForm.classList.add('ad-form--disabled');
   adFormElements.forEach((element) => {
     element.removeAttribute('disabled');
@@ -24,7 +24,7 @@ const inactivePage = () => {
   mapFeatures.setAttribute('disabled', 'disabled');
 };
 
-const activateFilterField = () => {
+const activateFilterForm = () => {
   mapFilters.classList.remove('map__filters--disabled');
   mapFiltersElements.forEach((element) => {
     element.removeAttribute('disabled');
@@ -41,8 +41,8 @@ const activateAdFormField = () => {
 
 // Поле адреса
 
-const addAddress = (address) => {
+const setAddress = (address) => {
   addressField.value = `${(address.lat).toFixed(COORDINATE_ACCURACY)}, ${(address.lng).toFixed(COORDINATE_ACCURACY)}`;
 };
 
-export {inactivePage, activateFilterField, activateAdFormField, addAddress};
+export {deactivatePage, activateFilterForm, activateAdFormField, setAddress};

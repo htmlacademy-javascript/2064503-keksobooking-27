@@ -1,8 +1,9 @@
-import {showErrorMessage, showSuccessMessage} from './util.js';
-import {resetMap} from './map.js';
+import {showAlert, showErrorMessage, showSuccessMessage} from './util.js';
+import {resetMap, replaceMarkers} from './map.js';
 import {resetPriceSlider} from './slider.js';
-import {renderPhotos, resetPhotos} from './photos.js';
-import {sendData} from './api.js';
+import {initPreview, resetPhotos} from './photos.js';
+import {getData, sendData} from './api.js';
+import {NUMBER_OF_SIMILAR_ADS, resetFilter} from './filter.js';
 
 const adForm = document.querySelector('.ad-form');
 const typeHousingField = adForm.querySelector('#type');
@@ -31,15 +32,24 @@ const resetForm = () => {
   resetPhotos();
   resetPriceSlider();
   resetMap();
+  resetFilter();
+  getData(
+    (ads) => {
+      replaceMarkers(ads.slice(0, NUMBER_OF_SIMILAR_ADS));
+    },
+    () => showAlert('Не удалось загрузить список объявлений'));
 };
+
 
 // Наличие данных
 
 const validateAvailabilityOfData = (value) => value.length > 0;
 
+
 // Проверка title
 
 const validateTitle = (value) => value.length >= TITLE_MIN_LENGTH && value.length <= TITLE_MAX_LENGTH;
+
 
 // Проверка price
 
@@ -82,12 +92,14 @@ timeOut.addEventListener('change', (evt) => {
   timeIn.value = evt.target.value;
 });
 
+
 // Перезагрузка формы
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
 });
+
 
 // Валидация
 
@@ -119,11 +131,12 @@ pristine.addValidator(adForm.querySelector('#address'),
 
 pristine.addValidator(adForm.querySelector('#room_number'),
   validateRoomNumber,
-  'Количество комнат должно быть больше или равно колучеству гостей');
+  'Количество комнат должно быть больше или равно количеству гостей');
 
 pristine.addValidator(adForm.querySelector('#capacity'),
   validateRoomNumber,
-  'Количество гостей должно быть меньше или равно колучеству комнат');
+  'Количество гостей должно быть меньше или равно количеству комнат');
+
 
 // Отправка формы
 
@@ -137,7 +150,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Сохранить';
 };
 
-const setUserFormSubmit = () => {
+const initUserFormSubmit = () => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -157,8 +170,8 @@ const setUserFormSubmit = () => {
       );
     }
   });
-  renderPhotos();
+  initPreview();
 };
 
 
-export {setUserFormSubmit};
+export {initUserFormSubmit};

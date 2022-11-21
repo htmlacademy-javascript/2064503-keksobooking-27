@@ -1,5 +1,5 @@
 import {renderAdSuitable} from './rendering-ads.js';
-import {activateAdFormField, setAddress} from './form-states.js';
+import {activateAdForm, setAddress} from './form-states.js';
 
 const startingPosition = {
   lat: 35.69042,
@@ -8,7 +8,7 @@ const startingPosition = {
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    activateAdFormField();
+    activateAdForm();
   });
 const markerGroup = L.layerGroup().addTo(map);
 setAddress(startingPosition);
@@ -75,11 +75,11 @@ const replaceMarkers = (points) => {
   renderMapPoints(points);
 };
 
-const addMarkers = (coordinates) => mainMarker.setLatLng(coordinates);
+const setMainMarkerCoords = (coordinates) => mainMarker.setLatLng(coordinates);
 
 const resetMap = () => {
   setAddress(startingPosition);
-  addMarkers(startingPosition);
+  setMainMarkerCoords(startingPosition);
   map.setView(startingPosition, 13);
 };
 

@@ -30,23 +30,23 @@ const successMessageTemplate = document.querySelector('#success')
   .content.querySelector('.success');
 const successMessage = successMessageTemplate.cloneNode(true);
 
-const onSuccessClick = () => {
+const onSuccessMessageClick = () => {
   successMessage.remove();
-  successMessage.removeEventListener('click', onSuccessClick);
-  document.removeEventListener('keydown', onSuccessKeydown);
+  successMessage.removeEventListener('click', onSuccessMessageClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-function onSuccessKeydown(evt) {
+function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    onSuccessClick();
+    onSuccessMessageClick();
   }
 }
 
 const showSuccessMessage = () => {
   document.body.append(successMessage);
-  successMessage.addEventListener('click', onSuccessClick);
-  document.addEventListener('keydown', onSuccessKeydown);
+  successMessage.addEventListener('click', onSuccessMessageClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 // Сообщение при ошибке отправки
@@ -57,11 +57,11 @@ const errorMessage = errorMessageTemplate.cloneNode(true);
 
 const onErrorMessageClick = () => {
   errorMessage.remove();
-  document.removeEventListener('keydown', onErrorMessageKeydown);
+  document.removeEventListener('keydown', onDocumentOfErrorKeydown);
   errorMessage.removeEventListener('click', onErrorMessageClick);
 };
 
-function onErrorMessageKeydown(evt) {
+function onDocumentOfErrorKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     onErrorMessageClick();
@@ -71,7 +71,7 @@ function onErrorMessageKeydown(evt) {
 const showErrorMessage = () => {
   document.body.append(errorMessage);
   errorMessage.addEventListener('click', onErrorMessageClick);
-  document.addEventListener('keydown', onErrorMessageKeydown);
+  document.addEventListener('keydown', onDocumentOfErrorKeydown);
 };
 
 // debounce

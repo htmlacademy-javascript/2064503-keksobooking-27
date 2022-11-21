@@ -32,7 +32,7 @@ const activateFilterForm = () => {
   mapFeatures.removeAttribute('disabled');
 };
 
-const activateAdFormField = () => {
+const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
   adFormElements.forEach((element) => {
     element.removeAttribute('disabled');
@@ -45,4 +45,4 @@ const setAddress = (address) => {
   addressField.value = `${(address.lat).toFixed(COORDINATE_ACCURACY)}, ${(address.lng).toFixed(COORDINATE_ACCURACY)}`;
 };
 
-export {deactivatePage, activateFilterForm, activateAdFormField, setAddress};
+export {deactivatePage, activateFilterForm, activateAdForm, setAddress};

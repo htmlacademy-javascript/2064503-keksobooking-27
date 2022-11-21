@@ -50,6 +50,7 @@ const filterFeatures = ({offer}) =>
       if (!offer.features) {
         return false;
       }
+
       return offer.features.includes(filterFeature.value);
     });
 

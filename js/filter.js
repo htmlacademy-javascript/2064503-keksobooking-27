@@ -5,7 +5,7 @@ const typeFilter = adFilters.querySelector('#housing-type');
 const priceFilter = adFilters.querySelector('#housing-price');
 const roomsFilter = adFilters.querySelector('#housing-rooms');
 const guestsFilter = adFilters.querySelector('#housing-guests');
-const featuresFilter = adFilters.querySelector('#housing-features');
+const featuresFilter = adFilters.querySelectorAll('.map__checkbox');
 
 const NUMBER_OF_SIMILAR_ADS = 10;
 

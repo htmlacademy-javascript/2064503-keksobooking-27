@@ -41,15 +41,17 @@ const filterRooms = ({offer}) => roomsFilter.value === 'any' ||
 const filterGuests = ({offer}) => guestsFilter.value === 'any' ||
   offer.guests === parseInt(guestsFilter.value, 10);
 
-const filterFeatures = ({offer}) => {
-  const checkedFilters = featuresFilter.querySelectorAll('input:checked');
-  if (offer.features) {
-    return Array.from(checkedFilters).every((feature) =>
-      offer.features.includes(feature.value));
-  }
-
-  return false;
-};
+const filterFeatures = ({offer}) =>
+  Array.from(featuresFilter)
+    .every((filterFeature) => {
+      if (!filterFeature.checked) {
+        return true;
+      }
+      if (!offer.features) {
+        return false;
+      }
+      return offer.features.includes(filterFeature.value);
+    });
 
 const filterAds = (ad) =>
   filterType(ad) &&

@@ -5,7 +5,7 @@ const typeFilter = adFilters.querySelector('#housing-type');
 const priceFilter = adFilters.querySelector('#housing-price');
 const roomsFilter = adFilters.querySelector('#housing-rooms');
 const guestsFilter = adFilters.querySelector('#housing-guests');
-const featuresFilter = adFilters.querySelector('#housing-features');
+const featuresFilter = adFilters.querySelectorAll('.map__checkbox');
 
 const NUMBER_OF_SIMILAR_ADS = 10;
 
@@ -41,15 +41,18 @@ const filterRooms = ({offer}) => roomsFilter.value === 'any' ||
 const filterGuests = ({offer}) => guestsFilter.value === 'any' ||
   offer.guests === parseInt(guestsFilter.value, 10);
 
-const filterFeatures = ({offer}) => {
-  const checkedFilters = featuresFilter.querySelectorAll('input:checked');
-  if (offer.features) {
-    return Array.from(checkedFilters).every((feature) =>
-      offer.features.includes(feature.value));
-  }
+const filterFeatures = ({offer}) =>
+  Array.from(featuresFilter)
+    .every((filterFeature) => {
+      if (!filterFeature.checked) {
+        return true;
+      }
+      if (!offer.features) {
+        return false;
+      }
 
-  return false;
-};
+      return offer.features.includes(filterFeature.value);
+    });
 
 const filterAds = (ad) =>
   filterType(ad) &&
